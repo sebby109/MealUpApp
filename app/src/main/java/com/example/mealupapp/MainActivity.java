@@ -1,6 +1,7 @@
 package com.example.mealupapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import android.util.Log;
 
 import android.os.Bundle;
 
@@ -10,5 +11,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        RecipeApi x = new RecipeApi();
+        Log.i("test", String.valueOf(x.getI()));
     }
 }
