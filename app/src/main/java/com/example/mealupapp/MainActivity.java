@@ -14,5 +14,6 @@ public class MainActivity extends AppCompatActivity {
         // test for commit 2
         RecipeApi x = new RecipeApi();
         Log.i("test", String.valueOf(x.getI()));
+        //Test Test Test
     }
 }
