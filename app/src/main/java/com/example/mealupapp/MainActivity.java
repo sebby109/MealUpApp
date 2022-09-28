@@ -11,8 +11,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // test for commit 2
+
+        //This is a comment
+        //There is a comment here too.
         RecipeApi x = new RecipeApi();
         Log.i("test", String.valueOf(x.getI()));
+        //Test Test Test Test
     }
 }
