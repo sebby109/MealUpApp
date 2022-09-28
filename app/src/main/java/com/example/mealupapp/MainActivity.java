@@ -15,6 +15,6 @@ public class MainActivity extends AppCompatActivity {
         //This is a comment
         //There is a comment here too.
         RecipeApi x = new RecipeApi();
-        x.getAPI("Beef");
+        x.getAPI("chicken");
     }
 }
