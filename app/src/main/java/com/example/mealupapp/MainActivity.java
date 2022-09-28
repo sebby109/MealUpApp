@@ -15,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
         //This is a comment
         //There is a comment here too.
         RecipeApi x = new RecipeApi();
-        Log.i("test", String.valueOf(x.getI()));
-        //Test Test Test Test
+        x.getAPI("Beef");
     }
 }
