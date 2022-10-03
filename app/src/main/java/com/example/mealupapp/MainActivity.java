@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //This is a comment
-        //There is a comment here too. hello
+        //There is a comment here too. hi
         RecipeApi x = new RecipeApi();
 
     }
