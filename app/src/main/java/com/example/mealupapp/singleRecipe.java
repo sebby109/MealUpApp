@@ -14,10 +14,13 @@ public class singleRecipe {
     private ArrayList<String> instructions;
     private String credit_name;
 
+    private ArrayList<String> ingredients;
+
     public singleRecipe() {
 
         this.nutrition = new ArrayList<String>();
         this.instructions = new ArrayList<String>();
+        this.ingredients = new ArrayList<String>();
 
     }
 
@@ -27,6 +30,12 @@ public class singleRecipe {
 
     public void addToInstructions(String name){
         instructions.add(name);
+    }
+
+    public void addToIngredients(String name){ ingredients.add(name); }
+
+    public ArrayList<String> getIngredients() {
+        return ingredients;
     }
 
     public String getId() {

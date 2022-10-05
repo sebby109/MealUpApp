@@ -50,12 +50,21 @@ public class RecipeApi {
     * None
     * */
     private void getSearchFeed(String qry, int pageStart){
-
-        int pageEnd = pageStart + 10;
+        int pageEnd = pageStart * 10;
+        String start = "1";
+        if(pageStart == 1){
+            pageEnd = 10;
+        }
+        else{
+            // if pagestart is 2, it will give results starting at
+            // 20 - 30. 3 gives 30 - 40 etc
+            start = String.valueOf(pageStart) + "0";
+            pageEnd += 10;
+        }
 
         // Obtains JSON data from our API
         Request request = new Request.Builder()
-                .url("https://tasty.p.rapidapi.com/recipes/list?from="+ pageStart +"&size=" + String.valueOf(pageEnd) + "&q=" + qry)
+                .url("https://tasty.p.rapidapi.com/recipes/list?from="+ start +"&size=" + String.valueOf(pageEnd) + "&q=" + qry)
                 .get()
                 .addHeader("X-RapidAPI-Key", "a122f83c62msh9cc7775d532a038p19b977jsn86ba7194c4da")
                 .addHeader("X-RapidAPI-Host", "tasty.p.rapidapi.com")
@@ -78,7 +87,6 @@ public class RecipeApi {
                 if(response.isSuccessful()){
                     ResponseBody responseBody = response.body();
                     String strResponse = responseBody.string();
-
                     getFeedData(strResponse);
 
                 }
