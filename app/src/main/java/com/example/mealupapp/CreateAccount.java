@@ -1,14 +1,15 @@
 package com.example.mealupapp;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import java.time.*;
-import java.util.*;
 
 import java.util.regex.Pattern;
 
@@ -17,6 +18,7 @@ public class CreateAccount extends AppCompatActivity {
     private Button cancel;
     private TextView password;
     private TextView username;
+    private TextView dob;
     private UserAccounts userAccounts;
     private static final Pattern PASSWORD_PATTERN =
             Pattern.compile("^" +
@@ -38,6 +40,7 @@ public class CreateAccount extends AppCompatActivity {
 
         username = (TextView) findViewById(R.id.username2);
         password = (TextView) findViewById(R.id.password2);
+        dob = (TextView) findViewById(R.id.bday);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,9 +84,13 @@ public class CreateAccount extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void validateBDay(){
         //gets LocalDate instance year,month,date
-
+        String str_dob = dob.getText().toString();
+        String[] arr_dob = str_dob.split("-");
+        LocalDate dob = LocalDate.of(Integer.valueOf(arr_dob[0]), Integer.valueOf(arr_dob[1]),
+                Integer.valueOf(arr_dob[2]));
     }
 
     private void createUser(){
