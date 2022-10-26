@@ -1,53 +1,76 @@
 package com.example.mealupapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.SearchView;
+import android.util.Log;
 
-import java.util.ArrayList;
+import androidx.appcompat.widget.SearchView;
 
 public class SearchBarActivity extends AppCompatActivity {
 
-    ListView listView;
-    ArrayAdapter<String> arrayAdapter;
+    private RecyclerView recyclerView;
+    private SearchResults searchResults;
+    private SearchView searchView;
+    private String qry;
+    private RecipeApi recipeApi;
+    private IngredientsAPI ingredientsAPI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_bar);
 
-        RecipeApi x = new RecipeApi();
-        SearchResults feed = x.getFeed("chicken soup", 1);
+        String searchType = getIntent().getStringExtra("btn");
+        Boolean isRecipe = false;
 
-        listView = findViewById(R.id.recipeSearch);
-        arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line,
-                new ArrayList<String>());
-        listView.setAdapter(arrayAdapter);
-    }
+        if(searchType.equals("recipe"))
+            isRecipe = true;
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.navi_menu, menu);
-        MenuItem menuItem = menu.findItem(R.id.action_bar);
-        SearchView searchView = (SearchView) menuItem.getActionView();
-        searchView.setQueryHint("What recipe?");
+        if(isRecipe){
+            recipeApi = new RecipeApi();
+            searchResults = recipeApi.getFeed(qry);
+        } else{
+            ingredientsAPI = new IngredientsAPI();
+            searchResults = ingredientsAPI.getFeed(" ");
+        }
+
+        recyclerView = findViewById(R.id.myRecyclerView);
+        recyclerAdapter adapter = new recyclerAdapter(this, searchResults);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        searchView = findViewById(R.id.mySearchView);
+        searchView.clearFocus();
+
+        Boolean finalIsRecipe = isRecipe;
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
+
+                if(adapter.getItemCount() == 0) {
+                    if(finalIsRecipe)
+                        searchResults = recipeApi.getFeed(query);
+                    else
+                        searchResults = ingredientsAPI.getFeed(query);
+                }
+                else{
+                    adapter.clearData();
+                    if(finalIsRecipe)
+                        searchResults = recipeApi.getFeed(query);
+                    else
+                        searchResults = ingredientsAPI.getFeed(query);;
+                }
+                adapter.notifyDataSetChanged();
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                arrayAdapter.getFilter().filter(newText);
                 return false;
             }
         });
-        return super.onCreateOptionsMenu(menu);
     }
 }

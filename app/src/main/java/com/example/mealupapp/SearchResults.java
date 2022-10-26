@@ -49,4 +49,10 @@ public class SearchResults {
     public void addName(String name){
         names.add(name);
     }
+
+    public void clear(){
+        ids.clear();
+        names.clear();
+        images.clear();
+    }
 }

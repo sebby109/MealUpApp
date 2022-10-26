@@ -42,7 +42,7 @@ public class IngredientsAPI {
         // Obtains JSON data from our API
         Request request = new Request.Builder()
                 .url("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/findByIngredients?ingredients=" +  qry
-                        + "&ignorePantry=true&ranking=1")
+                        + "&number=100&ignorePantry=true&ranking=1")
                 .get()
                 .addHeader("X-RapidAPI-Key", "a122f83c62msh9cc7775d532a038p19b977jsn86ba7194c4da")
                 .addHeader("X-RapidAPI-Host", "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com")

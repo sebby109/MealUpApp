@@ -3,42 +3,60 @@ package com.example.mealupapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.util.Log;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupWindow;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.button.MaterialButton;
+
 
 public class MainActivity extends AppCompatActivity {
-    private Button button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //This is a comment
-        //There is a comment here too. hi
-        //RecipeApi x = new RecipeApi();
-        //SearchResults r = x.getFeed("tuna, lettuce");
-        //String name = r.getNames().get(0);
-        //String img = r.getImages().get(0);
-        //String id = r.getIds().get(0);
-        //x.findRecipe(id, img, name);
+        TextView username = (TextView) findViewById(R.id.username);
+        TextView password = (TextView) findViewById(R.id.password);
+        TextView newAcc = (TextView) findViewById(R.id.createacc);
+        Button loginbtn = (MaterialButton) findViewById(R.id.loginbtn);
 
-        //RecipeApi x = new RecipeApi();
-        //SearchResults feed = x.getFeed("chicken soup", 1);
-
-        button = (Button) findViewById(R.id.recipeButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        //used to check login for now. correct login is admin admin
+        loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openSearchBarActivity();
+                if(username.getText().toString().equals("admin")
+                && password.getText().toString().equals("admin")){
+                    //correct
+                    Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                    openHomeScreenActivity();
+                } else{
+                    //incorrect
+                    Toast.makeText(MainActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        newAcc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openPopUpWindow();
             }
         });
     }
 
-    public void openSearchBarActivity(){
-        Intent intent = new Intent(this, SearchBarActivity.class);
+    private void openPopUpWindow() {
+        Intent popUpWindow = new Intent(this, CreateAccount.class);
+        startActivity(popUpWindow);
+    }
+
+    public void openHomeScreenActivity(){
+        Intent intent = new Intent(this, HomeScreenActivity.class);
         startActivity(intent);
     }
 }
