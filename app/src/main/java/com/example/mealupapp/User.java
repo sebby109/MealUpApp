@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class User {
     private String username;
-    private String password;
+    private int password;
     private String age;
     private ArrayList<String> recipes;
     private ArrayList<String> ingredients;
     private String security_q;
 
-    User(String username, String password, String age){
+    User(String username, int password, String age){
         this.username = username;
         this.password = password;
         this.age = age;
@@ -24,11 +24,11 @@ public class User {
         this.username = username;
     }
 
-    public Boolean checkPassword(String password){
-        return this.password.equals(password);
+    public Boolean checkPassword(int password){
+        return this.password == password;
     }
 
-    public void changePassword(String curr_pass, String new_pass){
+    public void changePassword(int curr_pass, int new_pass){
         if(this.checkPassword(curr_pass))
             this.password = new_pass;
     }
@@ -53,7 +53,7 @@ public class User {
         return this.security_q.equals(security_q);
     }
 
-    public void changeSecurity(String new_sq, String password){
+    public void changeSecurity(String new_sq, int password){
         if(this.checkPassword(password))
             this.security_q = new_sq;
     }
