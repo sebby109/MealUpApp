@@ -26,6 +26,10 @@
             android:name=".SearchBarActivity"
             android:exported="false" />
 
+        <activity android:name=".HomeScreenActivity"
+            android:exported="false"
+            />
+
         <activity
             android:name=".SplashScreen"
             android:exported="true"
