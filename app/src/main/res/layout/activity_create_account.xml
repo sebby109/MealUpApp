@@ -56,7 +56,6 @@
         android:textColor="@color/white"
         android:layout_margin="10dp"
         android:padding="20dp"
-        android:inputType="textPassword"
         />
 
     <Button

@@ -96,10 +96,11 @@ public class CreateAccount extends AppCompatActivity {
     private void createUser(){
         String user = username.getText().toString();
         String pass = password.getText().toString();
+        // salts password. maybe will add a pepper.
         pass = pass + "P#!@t";
-        int hash_pass = pass.hashCode();
+        int hash_salt_pass = pass.hashCode();
 
-        User newUser = new User(user, hash_pass, "20");
+        User newUser = new User(user, hash_salt_pass, "20");
         userAccounts.addAccount(user, newUser);
     }
 }
