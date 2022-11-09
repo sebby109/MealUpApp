@@ -24,8 +24,7 @@ public class RecipeApi {
     private ArrayList<String> ids;
     private ArrayList<String> images;
     private SearchResults myResults;
-    private singleRecipe myRecipe;
-
+    private SingleRecipe myRecipe;
 
     RecipeApi(){
         client = new OkHttpClient();
@@ -33,7 +32,7 @@ public class RecipeApi {
         ids = new ArrayList<String>();
         images = new ArrayList<String>();
         myResults = new SearchResults();
-        myRecipe = new singleRecipe();
+        myRecipe = new SingleRecipe();
     }
 
     /*
@@ -54,7 +53,7 @@ public class RecipeApi {
 
         // Obtains JSON data from our API
         Request request = new Request.Builder()
-                .url("https://tasty.p.rapidapi.com/recipes/list?from="+ start +"&size=100&q=" + qry)
+                .url("https://tasty.p.rapidapi.com/recipes/list?from=0&size=100&q=" + qry)
                 .get()
                 .addHeader("X-RapidAPI-Key", "a122f83c62msh9cc7775d532a038p19b977jsn86ba7194c4da")
                 .addHeader("X-RapidAPI-Host", "tasty.p.rapidapi.com")
@@ -68,6 +67,7 @@ public class RecipeApi {
                 // here will change to also take care if API is down
                 // it will also change app screen to let user
                 // know that App is down.
+                Log.d("cvb2", "failing");
                 e.printStackTrace();
             }
 
@@ -78,7 +78,8 @@ public class RecipeApi {
                     ResponseBody responseBody = response.body();
                     String strResponse = responseBody.string();
                     getFeedData(strResponse);
-
+                    Log.d("cvb", "working");
+                    //recipeCallback.displayFeed(myResults);
                 }
                 countDownLatch.countDown();
             }
@@ -227,7 +228,7 @@ public class RecipeApi {
         return myResults;
     }
 
-    public singleRecipe recipeInfo(String id){
+    public SingleRecipe recipeInfo(String id){
         getRecipeData(id);
         myRecipe.setId(id);
         return myRecipe;

@@ -17,12 +17,15 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.MyViewHolder> {
+    private final RecyclerViewInterface recyclerViewInterface;
     private SearchResults searches;
     private Context context;
 
-    public recyclerAdapter(Context context, SearchResults searches){
+    public recyclerAdapter(Context context, SearchResults searches,
+                           RecyclerViewInterface recyclerViewInterface){
         this.context = context;
         this.searches = searches;
+        this.recyclerViewInterface = recyclerViewInterface;
     }
 
     @NonNull
@@ -32,7 +35,7 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.MyView
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.recycler_view_row, parent, false);
 
-        return new recyclerAdapter.MyViewHolder(view);
+        return new recyclerAdapter.MyViewHolder(view, recyclerViewInterface);
     }
 
     @Override
@@ -41,9 +44,6 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.MyView
         // based on position
 
         holder.name.setText(searches.getNames().get(position));
-        //need to figure out how to get image url to display here i think.
-        //holder.imageView.setImageResource(searches.getImages().get(position));
-        Log.d("image2", searches.getImages().get(position));
         Glide.with(context).load(searches.getImages().get(position)).into(holder.imageView);
     }
 
@@ -64,11 +64,24 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.MyView
         ImageView imageView;
         TextView name;
         //SearchView search_box;
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
             name = itemView.findViewById(R.id.textView1);
             //search_box = search_box.findViewById(R.id.mySearchView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(recyclerViewInterface != null){
+                        int pos = getAdapterPosition();
+
+                        if(pos != RecyclerView.NO_POSITION){
+                            recyclerViewInterface.onItemClick(pos);
+                        }
+                    }
+                }
+            });
         }
     }
 }

@@ -2,8 +2,6 @@ package com.example.mealupapp;
 
 import android.util.Log;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import androidx.annotation.NonNull;
 
@@ -27,7 +25,7 @@ public class IngredientsAPI {
     private ArrayList<String> ids;
     private ArrayList<String> images;
     private SearchResults myResults;
-    private singleRecipe myRecipe;
+    private SingleRecipe myRecipe;
 
     IngredientsAPI(){
         client = new OkHttpClient();
@@ -35,7 +33,7 @@ public class IngredientsAPI {
         ids = new ArrayList<String>();
         images = new ArrayList<String>();
         myResults = new SearchResults();
-        myRecipe = new singleRecipe();
+        myRecipe = new SingleRecipe();
     }
 
     private void getSearchFeed(String qry){

@@ -5,9 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +15,10 @@ import com.google.android.material.button.MaterialButton;
 
 
 public class MainActivity extends AppCompatActivity {
+    SearchResults z;
+    RecipeApi x;
+    Button loginbtn;
+    SearchResults k;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         TextView username = (TextView) findViewById(R.id.username);
         TextView password = (TextView) findViewById(R.id.password);
         TextView newAcc = (TextView) findViewById(R.id.createacc);
-        Button loginbtn = (MaterialButton) findViewById(R.id.loginbtn);
+        loginbtn = (MaterialButton) findViewById(R.id.loginbtn);
 
         //used to check login for now. correct login is admin admin
         loginbtn.setOnClickListener(new View.OnClickListener() {

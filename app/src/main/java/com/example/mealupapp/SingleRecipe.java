@@ -1,8 +1,11 @@
 package com.example.mealupapp;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
-public class singleRecipe {
+public class SingleRecipe implements Parcelable {
     private String id;
     private String servings;
     private String img_url;
@@ -16,13 +19,39 @@ public class singleRecipe {
 
     private ArrayList<String> ingredients;
 
-    public singleRecipe() {
+    public SingleRecipe() {
 
         this.nutrition = new ArrayList<String>();
         this.instructions = new ArrayList<String>();
         this.ingredients = new ArrayList<String>();
 
     }
+
+    protected SingleRecipe(Parcel in) {
+        id = in.readString();
+        servings = in.readString();
+        img_url = in.readString();
+        nutrition = in.createStringArrayList();
+        recipe_name = in.readString();
+        description = in.readString();
+        cook_time = in.readString();
+        prep_time = in.readString();
+        instructions = in.createStringArrayList();
+        credit_name = in.readString();
+        ingredients = in.createStringArrayList();
+    }
+
+    public static final Creator<SingleRecipe> CREATOR = new Creator<SingleRecipe>() {
+        @Override
+        public SingleRecipe createFromParcel(Parcel in) {
+            return new SingleRecipe(in);
+        }
+
+        @Override
+        public SingleRecipe[] newArray(int size) {
+            return new SingleRecipe[size];
+        }
+    };
 
     public void addToNutrition(String name){
         nutrition.add(name);
@@ -120,5 +149,25 @@ public class singleRecipe {
 
     public void setCredit_name(String credit_name) {
         this.credit_name = credit_name;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(servings);
+        dest.writeString(img_url);
+        dest.writeStringList(nutrition);
+        dest.writeString(recipe_name);
+        dest.writeString(description);
+        dest.writeString(cook_time);
+        dest.writeString(prep_time);
+        dest.writeStringList(instructions);
+        dest.writeString(credit_name);
+        dest.writeStringList(ingredients);
     }
 }

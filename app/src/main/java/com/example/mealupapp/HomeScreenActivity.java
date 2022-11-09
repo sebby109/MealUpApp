@@ -11,7 +11,6 @@ import android.widget.ImageView;
 
 public class HomeScreenActivity extends AppCompatActivity {
     private Button button;
-    private Button ingredBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,9 +20,6 @@ public class HomeScreenActivity extends AppCompatActivity {
         Log.d("wrong", userAccounts.verifyAccount("bob", "bob"));
         button = findViewById(R.id.recipeButton);
         button.setOnClickListener(v -> openSearchActivity("recipe"));
-
-        ingredBtn = findViewById(R.id.ingredbtn);
-        ingredBtn.setOnClickListener(v -> openSearchActivity("ingredient"));
     }
 
     public void openSearchActivity(String type){

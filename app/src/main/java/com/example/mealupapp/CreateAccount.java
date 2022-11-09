@@ -94,7 +94,6 @@ public class CreateAccount extends AppCompatActivity {
     }
 
     private void createUser(){
-        // test comment
         String user = username.getText().toString();
         String pass = password.getText().toString();
         // salts password. maybe will add a pepper.
