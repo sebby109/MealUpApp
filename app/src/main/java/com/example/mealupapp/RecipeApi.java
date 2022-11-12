@@ -67,7 +67,6 @@ public class RecipeApi {
                 // here will change to also take care if API is down
                 // it will also change app screen to let user
                 // know that App is down.
-                Log.d("cvb2", "failing");
                 e.printStackTrace();
             }
 
@@ -78,7 +77,6 @@ public class RecipeApi {
                     ResponseBody responseBody = response.body();
                     String strResponse = responseBody.string();
                     getFeedData(strResponse);
-                    Log.d("cvb", "working");
                     //recipeCallback.displayFeed(myResults);
                 }
                 countDownLatch.countDown();
@@ -211,6 +209,22 @@ public class RecipeApi {
 
             for(int i=0; i < jsonArray.length(); i++){
                 JSONObject object = jsonArray.getJSONObject(i);
+
+                try{
+                    // passes any recipe that is not actually
+                    // a recipe but a list of recipes.
+                    String test = object.getString("recipes");
+                    continue;
+                }
+                catch (JSONException e){
+                    // does not need to do anything if the recipe
+                    // in the search is a recipe and not
+                    // a list of recipes. The error occurs
+                    // when the search is a regular recipe
+                    // because it will not have "recipes"
+                    // in its array.
+                }
+
                 String recipe_name = object.getString("name");
                 String recipe_id = object.getString("id");
                 String img_url = object.getString("thumbnail_url");
