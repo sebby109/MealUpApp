@@ -30,7 +30,7 @@ public class macro_calcul extends AppCompatActivity {
         int num_height1 = Integer.parseInt(et2.getText().toString());
         int num_height2 = Integer.parseInt(et3.getText().toString());
         int num_weight = Integer.parseInt(et4.getText().toString());
-        double result = 66.5 + (13.75 * (num_weight * 0.45359237)) + (5.003 * ((num_height1 * 30.4) + (num_height2 * 2.54)))-(6.75 * num_age);
+        double result = 66.5 + (13.75 * (num_weight * 0.45359237)) + (5.003 * ((num_height1 * 30.48) + (num_height2 * 2.54)))-(6.75 * num_age);
         double result_protein = (result * 0.2) / 4;
         double result2_carbs = (result * 0.5) / 4;
         double result3_fat = (result * 0.3) / 9;
@@ -43,8 +43,6 @@ public class macro_calcul extends AppCompatActivity {
         et6.setText(string_protein);
         et7.setText(string_carbs);
         et8.setText(string_fat);
-
-
 
 
     }
@@ -62,7 +60,7 @@ public class macro_calcul extends AppCompatActivity {
         int num_height1 = Integer.parseInt(et2.getText().toString());
         int num_height2 = Integer.parseInt(et3.getText().toString());
         int num_weight = Integer.parseInt(et4.getText().toString());
-        double result = 655.1 + (9.563 * (num_weight * 0.45359237)) + (1.850 * ((num_height1 * 30.4) + (num_height2 * 2.54)))-(4.676 * num_age);
+        double result = 655.1 + (9.563 * (num_weight * 0.45359237)) + (1.850 * ((num_height1 * 30.48) + (num_height2 * 2.54)))-(4.676 * num_age);
         double result_protein = (result * 0.2) / 4;
         double result2_carbs = (result * 0.5) / 4;
         double result3_fat = (result * 0.3) / 9;
