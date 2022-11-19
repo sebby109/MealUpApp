@@ -31,7 +31,7 @@ public class RecipeResults extends AppCompatActivity {
         Glide.with(this).load(recipe.getImg_url()).into(imageView);
 
         descriptions.append(recipe.getDescription() + "\n\n");
-        descriptions.append("Servings:\n" + recipe.getServings() + "\n\n");
+        descriptions.append("Servings: " + recipe.getServings() + "\n");
 
         String[] labels = {"Sugar: ", "Carbs: ", "Fiber: ", "Protein: ", "Fat: ",
         "Calories: "};
@@ -48,17 +48,17 @@ public class RecipeResults extends AppCompatActivity {
         String cook = recipe.getCook_time();
 
         if(!prep.equals("null"))
-            descriptions.append("\n\n" + prep);
+            descriptions.append("\n" + "Prep time: "+ prep + " minutes");
         if(!cook.equals("null"))
-            descriptions.append("\n\n" + cook);
+            descriptions.append("\n" + "Cook time: " + cook + " minutes");
 
         ArrayList<String> instructions = recipe.getInstructions();
         for(int z=0; z < k; z++){
             if(instructions.isEmpty())
                 break;
             if(z == 0)
-                descriptions.append("Instructions:");
-            descriptions.append("\n" + String.valueOf(z + 1)+ ".) " + instructions.get(z));
+                descriptions.append("\n\nInstructions:");
+            descriptions.append("\n\n" + String.valueOf(z + 1)+ ".) " + instructions.get(z));
         }
 
         descriptions.append("\n\nCredit: " + recipe.getCredit_name() + "\n@Tasty (tasty.co)");
