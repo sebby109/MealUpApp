@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,12 +16,8 @@
         android:textColor="@color/black"
         android:textSize="35dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/rPicture"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/rPicture"
-        tools:ignore="MissingConstraints" />
+        android:padding="10dp"
+        />
 
     <ImageView
         android:id="@+id/rPicture"
@@ -30,9 +25,27 @@
         android:layout_height="150dp"
         android:layout_below="@+id/rTitle"
         android:padding="10dp"
-        android:src="@drawable/ic_baseline_search_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rTitle" />
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
+        android:src="@drawable/ic_baseline_search_24" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rPicture"
+        android:layout_margin="20dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:id="@+id/rDescriptions"
+            android:layout_below="@+id/rPicture"
+            android:lineSpacingExtra="5sp"
+            android:textSize="20dp"
+            />
+
+    </ScrollView>
+
+</RelativeLayout>
