@@ -39,6 +39,8 @@ public class RecipeResults extends AppCompatActivity {
         for(int s=0; s < i; s++){
             if(nutrient.isEmpty())
                 break;
+            if(labels.length < i)
+                break;
             if(s == 0)
                 descriptions.append("Per serving:");
             descriptions.append("\n" + labels[s] + nutrient.get(s));
