@@ -5,12 +5,12 @@ import java.util.ArrayList;
 public class User {
     private String username;
     private int password;
-    private String age;
+    private int age;
     private ArrayList<String> recipes;
     private ArrayList<String> ingredients;
     private String security_q;
 
-    User(String username, int password, String age){
+    User(String username, int password, int age){
         this.username = username;
         this.password = password;
         this.age = age;
@@ -34,10 +34,10 @@ public class User {
     }
 
     public String getAge(){
-        return age;
+        return String.valueOf(age);
     }
 
-    public void updateAge(String age){
+    public void updateAge(int age){
         this.age = age;
     }
 

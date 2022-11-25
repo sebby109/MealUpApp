@@ -15,10 +15,7 @@ import com.google.android.material.button.MaterialButton;
 
 
 public class MainActivity extends AppCompatActivity {
-    SearchResults z;
-    RecipeApi x;
     Button loginbtn;
-    SearchResults k;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         TextView password = (TextView) findViewById(R.id.password);
         TextView newAcc = (TextView) findViewById(R.id.createacc);
         loginbtn = (MaterialButton) findViewById(R.id.loginbtn);
+        Log.d("accounts2", String.valueOf(UserAccounts.number_of_accounts()));
 
         //used to check login for now. correct login is admin admin
         loginbtn.setOnClickListener(new View.OnClickListener() {
@@ -55,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openPopUpWindow() {
-        Intent popUpWindow = new Intent(this, CreateAccount.class);
-        startActivity(popUpWindow);
+        Intent intent = new Intent(this, CreateAccount.class);
+        startActivity(intent);
     }
 
     public void openHomeScreenActivity(){

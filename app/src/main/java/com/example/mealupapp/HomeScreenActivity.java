@@ -16,8 +16,7 @@ public class HomeScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
-        UserAccounts userAccounts = new UserAccounts();
-        Log.d("wrong", userAccounts.verifyAccount("bob", "bob"));
+
         button = findViewById(R.id.recipeButton);
         button.setOnClickListener(v -> openSearchActivity("recipe"));
     }

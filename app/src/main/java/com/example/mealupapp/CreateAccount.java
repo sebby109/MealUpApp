@@ -3,13 +3,18 @@ package com.example.mealupapp;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import java.time.Period;
+import java.time.LocalDate;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import java.time.*;
+import android.widget.Toast;
 
 import java.util.regex.Pattern;
 
@@ -19,7 +24,7 @@ public class CreateAccount extends AppCompatActivity {
     private TextView password;
     private TextView username;
     private TextView dob;
-    private UserAccounts userAccounts;
+
     private static final Pattern PASSWORD_PATTERN =
             Pattern.compile("^" +
                     "(?=.*[0-9])" +         //at least 1 digit
@@ -27,7 +32,7 @@ public class CreateAccount extends AppCompatActivity {
                     "(?=.*[a-zA-Z])" +      //any letter
                     "(?=.*[@#$%^&+=])" +    //at least 1 special character
                     "(?=\\S+$)" +           //no white spaces
-                    ".{6,}" +               //at least 4 characters
+                    ".{6,}" +               //at least 6 characters
                     "$");
 
     @Override
@@ -43,9 +48,14 @@ public class CreateAccount extends AppCompatActivity {
         dob = (TextView) findViewById(R.id.bday);
 
         submit.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
-                validatePassword();
+                if(validateBDay() && validatePassword() && validateUsername()){
+                    createUser();
+                    Toast.makeText(CreateAccount.this, "Account created!", Toast.LENGTH_SHORT).show();
+                    openLogin();
+                }
             }
         });
 
@@ -74,9 +84,56 @@ public class CreateAccount extends AppCompatActivity {
     }
 
     private boolean validateUsername() {
+        //need to create a patter for this.
         String usernameInput = username.getText().toString().trim();
 
-        return true;
+        if (usernameInput.isEmpty()) {
+            username.setError("Field can't be empty");
+            return false;
+        } else if (usernameInput.length() < 4) {
+            username.setError("Username must be at least 6 characters");
+            return false;
+        } else if (usernameInput.length() > 10) {
+            username.setError("Username too long");
+            return false;
+        } else {
+            username.setError(null);
+            return true;
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private boolean validateBDay(){
+        String bdayInput = dob.getText().toString().trim();
+        int n = bdayInput.length();
+
+        if (bdayInput.isEmpty()) {
+            dob.setError("Field cannot be empty");
+            return false;
+        } else if (n < 10 || n > 10) {
+            dob.setError("Invalid input");
+            return false;
+        } else if (!bdayInput.matches("(\\d{4})-(0?[1-9]|1[012])-(0?[1-9]|[12][0-9]|3[01])")) {
+            dob.setError("Invalid input");
+            return false;
+        }
+        else {
+            dob.setError(null);
+            return true;
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private int getAge(String bday){
+        String[] bday_split = bday.split("-");
+        int year = Integer.valueOf(bday_split[0]);
+        int month =  Integer.valueOf(bday_split[1]);
+        int day =  Integer.valueOf(bday_split[2]);
+
+        LocalDate today = LocalDate.now();
+        LocalDate birthDate = LocalDate.of(year, month, day);
+
+        return Period.between(birthDate, today).getYears();
     }
 
     private void openLogin(){
@@ -85,22 +142,15 @@ public class CreateAccount extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void validateBDay(){
-        //gets LocalDate instance year,month,date
-        String str_dob = dob.getText().toString();
-        String[] arr_dob = str_dob.split("-");
-        LocalDate dob = LocalDate.of(Integer.valueOf(arr_dob[0]), Integer.valueOf(arr_dob[1]),
-                Integer.valueOf(arr_dob[2]));
-    }
-
     private void createUser(){
         String user = username.getText().toString();
         String pass = password.getText().toString();
-        // salts password. maybe will add a pepper.
+        int age = getAge(dob.getText().toString());
+        // salts password
         pass = pass + "P#!@t";
         int hash_salt_pass = pass.hashCode();
 
-        User newUser = new User(user, hash_salt_pass, "20");
-        userAccounts.addAccount(user, newUser);
+        User newUser = new User(user, hash_salt_pass, age);
+        UserAccounts.addAccount(user, newUser);
     }
 }

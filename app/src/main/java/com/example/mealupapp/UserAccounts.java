@@ -1,22 +1,28 @@
 package com.example.mealupapp;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.HashMap;
 
-public class UserAccounts {
-    private HashMap<String, User> accounts;
+public final class UserAccounts {
+    private static HashMap<String, User> accounts = new HashMap<String, User>();
 
-    UserAccounts(){
-        accounts = new HashMap<String, User>();
+    private UserAccounts(){
     }
 
-    public void addAccount(String username, User user){
+    public static void addAccount(String username, User user){
         accounts.put(username, user);
     }
 
-    public String verifyAccount(String username, String password){
+    public static Boolean verifyAccount(String username, String password){
         // comment for commit
         if(!accounts.containsKey(username))
-            return "nope";
-        return "yes";
+            return false;
+        return true;
+    }
+
+    public static int number_of_accounts(){
+        return accounts.size();
     }
 }
