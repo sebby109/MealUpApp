@@ -24,6 +24,7 @@ public class CreateAccount extends AppCompatActivity {
     private TextView password;
     private TextView username;
     private TextView dob;
+    private DBHelper DB;
 
     private static final Pattern PASSWORD_PATTERN =
             Pattern.compile("^" +
@@ -46,6 +47,7 @@ public class CreateAccount extends AppCompatActivity {
         username = (TextView) findViewById(R.id.username2);
         password = (TextView) findViewById(R.id.password2);
         dob = (TextView) findViewById(R.id.bday);
+        DB = new DBHelper(this);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -53,7 +55,6 @@ public class CreateAccount extends AppCompatActivity {
             public void onClick(View v) {
                 if(validateBDay() && validatePassword() && validateUsername()){
                     createUser();
-                    Toast.makeText(CreateAccount.this, "Account created!", Toast.LENGTH_SHORT).show();
                     openLogin();
                 }
             }
@@ -150,7 +151,15 @@ public class CreateAccount extends AppCompatActivity {
         pass = pass + "P#!@t";
         int hash_salt_pass = pass.hashCode();
 
-        User newUser = new User(user, hash_salt_pass, age);
-        UserAccounts.addAccount(user, newUser);
+        Boolean check = DB.insertUserData(user, hash_salt_pass, age);
+
+        if(check){
+            Log.d("created", "working");
+            Toast.makeText(CreateAccount.this, "Account created!", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(CreateAccount.this, "failed", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }

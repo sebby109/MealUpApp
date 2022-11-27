@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,17 +17,18 @@ import com.google.android.material.button.MaterialButton;
 
 public class MainActivity extends AppCompatActivity {
     Button loginbtn;
-
+    DBHelper DB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        DB = new DBHelper(this);
+        //Log.d("helper_check", String.valueOf(DB.getData("sebby2").getCount()));
         TextView username = (TextView) findViewById(R.id.username);
         TextView password = (TextView) findViewById(R.id.password);
         TextView newAcc = (TextView) findViewById(R.id.createacc);
         loginbtn = (MaterialButton) findViewById(R.id.loginbtn);
-        Log.d("accounts2", String.valueOf(UserAccounts.number_of_accounts()));
 
         //used to check login for now. correct login is admin admin
         loginbtn.setOnClickListener(new View.OnClickListener() {
