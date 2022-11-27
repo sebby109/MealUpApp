@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         TextView password = (TextView) findViewById(R.id.password);
         TextView newAcc = (TextView) findViewById(R.id.createacc);
         loginbtn = (MaterialButton) findViewById(R.id.loginbtn);
-
+        // commit check
         //used to check login for now. correct login is admin admin
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
