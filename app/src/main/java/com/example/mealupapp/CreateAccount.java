@@ -25,6 +25,7 @@ public class CreateAccount extends AppCompatActivity {
     private TextView username;
     private TextView dob;
     private DBHelper DB;
+    private User new_user;
 
     private static final Pattern PASSWORD_PATTERN =
             Pattern.compile("^" +
@@ -53,9 +54,11 @@ public class CreateAccount extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
-                if(validateBDay() && validatePassword() && validateUsername()){
-                    createUser();
-                    openLogin();
+                if(validateBDay() && validatePassword() && validateUsername() &&
+                getAge(dob.getText().toString()) >= 13){
+                    if(createUser()){
+                        openHomeScreen();
+                    }
                 }
             }
         });
@@ -142,8 +145,14 @@ public class CreateAccount extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void openHomeScreen(){
+        Intent intent = new Intent(this, HomeScreenActivity.class);
+        intent.putExtra("user", new_user);
+        startActivity(intent);
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void createUser(){
+    private boolean createUser(){
         String user = username.getText().toString();
         String pass = password.getText().toString();
         int age = getAge(dob.getText().toString());
@@ -154,11 +163,13 @@ public class CreateAccount extends AppCompatActivity {
         Boolean check = DB.insertUserData(user, hash_salt_pass, age);
 
         if(check){
-            Log.d("created", "working");
+            new_user = new User(user, hash_salt_pass, age);
             Toast.makeText(CreateAccount.this, "Account created!", Toast.LENGTH_SHORT).show();
+            return true;
         }
         else {
-            Toast.makeText(CreateAccount.this, "failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(CreateAccount.this, "Failed, please try again.", Toast.LENGTH_SHORT).show();
+            return false;
         }
 
     }

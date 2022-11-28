@@ -53,7 +53,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         if (cursor.getCount() > 0) {
 
-            long result = DB.update("Usderdetails", contentValues, "username?", new String[]{username});
+            long result = DB.update("Userdetails", contentValues, "username?", new String[]{username});
 
             //failed
             if (result == -1)
@@ -70,7 +70,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         if (cursor.getCount() > 0) {
 
-            long result = DB.delete("Usderdetails", "username?", new String[]{username});
+            long result = DB.delete("Userdetails", "username?", new String[]{username});
 
             //failed
             if (result == -1)
@@ -81,10 +81,11 @@ public class DBHelper extends SQLiteOpenHelper {
             return false;
     }
 
-    public Cursor getData(String username) {
+    public Cursor getData(String username, String password) {
         SQLiteDatabase DB = this.getWritableDatabase();
-        Cursor cursor = DB.rawQuery("Select * from Userdetails where username = ?", new String[]{username});
-        // left off at @19:05
+        password += "P#!@t";
+        String hashed_pass = String.valueOf(password.hashCode());
+        Cursor cursor = DB.rawQuery("Select * from Userdetails where username = ? and password = ?", new String[]{username, hashed_pass});
         return cursor;
     }
 }
