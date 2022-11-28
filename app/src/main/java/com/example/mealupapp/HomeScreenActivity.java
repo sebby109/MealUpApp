@@ -18,6 +18,9 @@ public class HomeScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+
+        //retrieves the user object when signed in from the login screen
+        // or after user creates an account.
         Intent intent = getIntent();
         User user = intent.getParcelableExtra("user");
 
