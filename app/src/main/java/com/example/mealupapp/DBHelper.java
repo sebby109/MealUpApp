@@ -83,6 +83,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Cursor getData(String username, String password) {
         SQLiteDatabase DB = this.getWritableDatabase();
+        // adds salt to password
         password += "P#!@t";
         String hashed_pass = String.valueOf(password.hashCode());
         Cursor cursor = DB.rawQuery("Select * from Userdetails where username = ? and password = ?", new String[]{username, hashed_pass});
