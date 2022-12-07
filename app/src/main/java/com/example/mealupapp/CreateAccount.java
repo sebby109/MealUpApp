@@ -73,6 +73,7 @@ public class CreateAccount extends AppCompatActivity {
     }
 
     private boolean validatePassword() {
+
         String passwordInput = password.getText().toString().trim();
 
         if (passwordInput.isEmpty()) {
