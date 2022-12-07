@@ -95,7 +95,7 @@ public class CreateAccount extends AppCompatActivity {
             username.setError("Field can't be empty");
             return false;
         } else if (usernameInput.length() < 4) {
-            username.setError("Username must be at least 6 characters");
+            username.setError("Username must be at least 4 characters");
             return false;
         } else if (usernameInput.length() > 10) {
             username.setError("Username too long");
