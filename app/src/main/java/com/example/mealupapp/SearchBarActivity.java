@@ -38,11 +38,11 @@ public class SearchBarActivity extends AppCompatActivity implements RecyclerView
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-
                 if (adapter.getItemCount() != 0) {
                     adapter.clearData();
                 }
                 searchResults = recipeApi.getFeed(query);
+
                 adapter.notifyDataSetChanged();
                 return true;
             }

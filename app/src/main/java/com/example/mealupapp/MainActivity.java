@@ -26,8 +26,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         DB = new DBHelper(this);
-
-        //Log.d("helper_check", String.valueOf(DB.getData("sebby2").getCount()));
         TextView username = (TextView) findViewById(R.id.username);
         TextView password = (TextView) findViewById(R.id.password);
         TextView newAcc = (TextView) findViewById(R.id.createacc);
